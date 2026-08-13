@@ -11,18 +11,25 @@ export default function Home() {
   return <main>
     <header>
       <a className="logo" href="#top">Monish P N<span>.</span></a>
-      <nav><a href="#work">Work</a><a href="#experience">Experience</a><a href="#about">About</a></nav>
+      <nav><a href="#about">About</a><a href="#work">Work</a><a href="#experience">Experience</a></nav>
       <a className="say-hi" href="mailto:pnmonish187@gmail.com">Say hello <Arrow /></a>
     </header>
 
     <section className="hero" id="top">
-      <div className="available"><i/> Available for opportunities</div>
-      <h1>Backend engineer.<br/><em>Systems thinker.</em></h1>
-      <div className="hero-bottom">
-        <p>I build dependable <strong>Go services, asynchronous systems, and cloud integrations</strong>—with a focus on performance, observability, and production reliability.</p>
-        <div><a className="btn" href="#work">See my work <span>↓</span></a><a className="text-link" href="https://linkedin.com/in/monish-pn" target="_blank" rel="noreferrer">LinkedIn <Arrow /></a></div>
+      <div className="hero-content">
+        <div className="hero-copy">
+          <div className="available"><i/> Available for opportunities</div>
+          <h1>Backend engineer.<br/><em>Systems thinker.</em></h1>
+          <div className="hero-bottom">
+            <p>I build dependable <strong>Go services, asynchronous systems, and cloud integrations</strong>—with a focus on performance, observability, and production reliability.</p>
+            <div><a className="btn" href="#work">See my work <span>↓</span></a><a className="text-link" href="https://linkedin.com/in/monish-pn" target="_blank" rel="noreferrer">LinkedIn <Arrow /></a></div>
+          </div>
+          <div className="hero-tag">Based in Bengaluru, India</div>
+        </div>
+        <div className="portrait-wrap">
+          <img src="/monish-profile.jpeg" alt="Monish P N" width="800" height="800" />
+        </div>
       </div>
-      <div className="hero-tag">Based in Bengaluru, India</div>
     </section>
 
     <section className="intro section" id="about">
