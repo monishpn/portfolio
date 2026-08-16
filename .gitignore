@@ -4,20 +4,12 @@
 .pnp.*
 /.yarn/
 
-# Generated builds and framework caches
-/dist/
+# Next.js builds and framework caches
 /.next/
-/.vinext/
 /out/
-/.vite/
 /.cache/
 *.tsbuildinfo
 next-env.d.ts
-
-# Local Cloudflare runtime state
-/.wrangler/
-.dev.vars
-.dev.vars.*
 
 # Environment variables and secrets
 .env
@@ -53,6 +45,5 @@ Thumbs.db
 /tmp/
 /temp/
 
-# Hosting source intentionally remains tracked:
-# .openai/hosting.json, app/, build/, public/, worker/,
-# package.json, package-lock.json, and project config files.
+# Deployment source intentionally remains tracked: app/, data/, public/,
+# package.json, package-lock.json, and the Next.js project config files.

@@ -1,0 +1,127 @@
+{
+  "profile": {
+    "name": "Monish P N",
+    "initials": "MPN",
+    "title": "Backend Software Engineer",
+    "location": "Bengaluru, India",
+    "availability": "Open to backend engineering opportunities",
+    "photo": "/monish-profile.jpeg",
+    "photoAlt": "Portrait of Monish P N",
+    "email": "pnmonish187@gmail.com",
+    "resumeLink": ""
+  },
+  "socials": [
+    { "name": "LinkedIn", "icon": "linkedin", "url": "https://linkedin.com/in/monish-pn", "ariaLabel": "LinkedIn profile" },
+    { "name": "GitHub", "icon": "github", "url": "https://github.com/monishpn", "ariaLabel": "GitHub profile" },
+    { "name": "Email", "icon": "mail", "url": "mailto:pnmonish187@gmail.com", "ariaLabel": "Send Monish an email" }
+  ],
+  "about": {
+    "headline": "I build reliable backend systems that are clear to operate and ready for production.",
+    "paragraphs": [
+      "I'm an early-career backend engineer with production experience building Go microservices, asynchronous processing systems, cloud integrations, and operational tooling.",
+      "My work has taken me from API and database design to weekly releases, monitoring, on-call support, and incident investigation. I care about performance, recovery, observability, and the small engineering decisions that make services dependable."
+    ],
+    "skillGroups": [
+      {
+        "category": "Languages",
+        "skills": ["Go / Golang", "Python", "Java", "C"]
+      },
+      {
+        "category": "Frameworks",
+        "skills": ["GoFr", "Django", "Flask"]
+      },
+      {
+        "category": "Backend & Data",
+        "skills": ["REST APIs", "Microservices", "Redis", "MySQL", "MongoDB"]
+      },
+      {
+        "category": "Cloud & Platform",
+        "skills": ["AWS", "Azure", "Kubernetes", "Docker", "GitHub Actions"]
+      },
+      {
+        "category": "Observability",
+        "skills": ["Grafana", "Prometheus", "OpenObserve", "Production monitoring"]
+      }
+    ]
+  },
+  "experiences": [
+    {
+      "dates": "June 2025 — April 2026",
+      "location": "Bengaluru · On-site",
+      "role": "Software Development Engineer",
+      "company": "ZopDev",
+      "logo": "/zopdev.png",
+      "logoAlt": "ZopDev logo",
+      "highlights": [
+        "Developed production Go microservices across cloud-resource management, FinOps, notifications, and observability.",
+        "Built Redis-backed asynchronous workers, REST APIs, MySQL workflows, and AWS integrations.",
+        "Executed weekly releases, joined 24-hour on-call rotations, and investigated 30+ production issues.",
+        "Improved API performance through pagination, SQL optimization, indexing, and batched retrieval."
+      ]
+    },
+    {
+      "dates": "May 2024 — July 2024",
+      "location": "Remote / Bengaluru",
+      "role": "Security Software Developer Intern",
+      "company": "Data Security Council of India / CID Karnataka",
+      "logo": "/dsci.png",
+      "logoAlt": "Data Security Council of India logo",
+      "highlights": [
+        "Contributed to an authorized internal OSINT platform for police stakeholders.",
+        "Evaluated and integrated 37 public OSINT APIs across heterogeneous intelligence data.",
+        "Received an Appreciation Certificate from the Superintendent of Police, Cybercrime Department, Karnataka."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "type": "Browser extension · Job search",
+      "title": "JD Lens",
+      "description": "Built a browser extension that displays the most useful details from a LinkedIn job post in a floating panel, removing the need to repeatedly expand and scan the full description.",
+      "details": [
+        "Extracts and summarizes the role, company, location, required experience, and preferred skills directly from the active job page.",
+        "Presents the information in a compact floating panel so users can evaluate opportunities faster while browsing LinkedIn.",
+        "Uses a platform-adapter architecture so support for additional job sites can be added without rewriting the shared parsing and presentation logic."
+      ],
+      "technologies": ["JavaScript", "Chrome Extension", "Manifest V3", "DOM Parsing"],
+      "githubUrl": "https://github.com/monishpn/job-lens"
+    },
+    {
+      "type": "FinOps · AWS RDS",
+      "title": "Database-level cost attribution",
+      "description": "Built a scheduled system that estimated each database's share of a common RDS bill using storage, CPU, and memory weights. It helped a client identify unused databases and contributed to an approximately 70% month-over-month cost reduction.",
+      "details": ["Designed a weighted attribution model using database storage, CPU, and memory consumption.", "Automated scheduled collection and calculation across shared AWS RDS infrastructure.", "Made database-level costs visible so unused resources could be identified and removed."],
+      "technologies": ["Go", "AWS SDK", "CloudWatch", "MySQL"],
+      "githubUrl": ""
+    },
+    {
+      "type": "Asynchronous processing",
+      "title": "Sequential transition engine",
+      "description": "Created restart-resilient Redis workers that preserved one-at-a-time ordering within 100+ resource groups while allowing five workers to process different groups concurrently.",
+      "details": ["Preserved strict sequential execution for operations belonging to the same resource group.", "Allowed independent groups to be processed concurrently across five workers.", "Designed recovery behavior so queued work could safely continue after restarts."],
+      "technologies": ["Go", "Redis", "Workers", "Recovery"],
+      "githubUrl": ""
+    },
+    {
+      "type": "Platform communications",
+      "title": "Multi-channel notification service",
+      "description": "Built an end-to-end service for Slack, email, Google Chat, and Microsoft Teams with queued dispatch, templates, throttling, actionable messages, and delayed failure retry.",
+      "details": ["Created a common delivery workflow across Slack, email, Google Chat, and Microsoft Teams.", "Added templates, throttling, actionable messages, and queued asynchronous dispatch.", "Handled transient delivery failures through delayed retry processing."],
+      "technologies": ["REST API", "Redis", "MySQL", "Slack API"],
+      "githubUrl": ""
+    },
+    {
+      "type": "Applied machine learning",
+      "title": "Text-to-SQL with T5",
+      "description": "Fine-tuned a T5 model to translate natural-language questions into basic to moderately complex SQL queries. The research was later published as a technical book chapter.",
+      "details": ["Fine-tuned a T5 transformer model on natural-language and SQL query pairs.", "Evaluated generation across basic and moderately complex query structures.", "Developed the work into research that was published as a technical book chapter."],
+      "technologies": ["Python", "T5", "Transformers", "SQL"],
+      "githubUrl": ""
+    }
+  ],
+  "achievements": [
+    { "title": "CIDECODE Hackathon 2024 — First Place", "description": "Won a national-level, 24-hour OSINT hackathon at PES University as part of a three-person team. The result led to my internship with DSCI / CID Karnataka." },
+    { "title": "Published Text-to-SQL Research", "description": "Published as a book chapter by CRC Press / Taylor & Francis in Emerging Technologies in AI, Computation, Communication, and Cybersecurity (2025)." },
+    { "title": "B.Tech in Computer Science Engineering", "description": "Graduated from BNM Institute of Technology with a GPA of 9.20 / 10.0." }
+  ]
+}
