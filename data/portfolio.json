@@ -8,18 +8,27 @@
     "photo": "/monish-profile.jpeg",
     "photoAlt": "Portrait of Monish P N",
     "email": "pnmonish187@gmail.com",
-    "resumeLink": ""
+    "resumeLink": "https://drive.google.com/file/d/1JwLq87khbxTnEVE6_ghbr2oHsTF6zdP1/view"
   },
   "socials": [
     { "name": "LinkedIn", "icon": "linkedin", "url": "https://linkedin.com/in/monish-pn", "ariaLabel": "LinkedIn profile" },
     { "name": "GitHub", "icon": "github", "url": "https://github.com/monishpn", "ariaLabel": "GitHub profile" },
     { "name": "Email", "icon": "mail", "url": "mailto:pnmonish187@gmail.com", "ariaLabel": "Send Monish an email" }
   ],
+  "sectionHeadings": {
+    "experience": "Production experience across backend, cloud, and security engineering",
+    "projects": "Engineering projects built around real-world problems",
+    "achievements": "Recognition across engineering, research, and academics"
+  },
+  "footer": {
+    "headline": "Let’s build reliable systems together.",
+    "message": "I’m open to backend engineering opportunities and conversations about dependable, production-ready software."
+  },
   "about": {
-    "headline": "I build reliable backend systems that are clear to operate and ready for production.",
+    "headline": "I build backend systems that stay dependable beyond the happy path.",
     "paragraphs": [
-      "I'm an early-career backend engineer with production experience building Go microservices, asynchronous processing systems, cloud integrations, and operational tooling.",
-      "My work has taken me from API and database design to weekly releases, monitoring, on-call support, and incident investigation. I care about performance, recovery, observability, and the small engineering decisions that make services dependable."
+      "I'm an early-career backend software engineer with hands-on production experience building Go microservices, REST APIs, cloud integrations, and operational tooling.",
+      "My work spans API and MySQL schema design, query optimization, automated testing, weekly production releases, monitoring, on-call support, and incident investigation. I care about controlled concurrency, recovery, observability, and the engineering details that make services easier to operate."
     ],
     "skillGroups": [
       {
@@ -32,15 +41,19 @@
       },
       {
         "category": "Backend & Data",
-        "skills": ["REST APIs", "Microservices", "Redis", "MySQL", "MongoDB"]
+        "skills": ["REST APIs", "OpenAPI / Swagger", "Microservices", "Redis", "MySQL", "MongoDB", "Asynchronous workers", "Concurrent processing"]
       },
       {
         "category": "Cloud & Platform",
-        "skills": ["AWS", "Azure", "Kubernetes", "Docker", "GitHub Actions"]
+        "skills": ["AWS", "Azure", "GCP exposure", "Kubernetes", "Docker", "Linux", "GitHub Actions"]
       },
       {
         "category": "Observability",
-        "skills": ["Grafana", "Prometheus", "OpenObserve", "Production monitoring"]
+        "skills": ["Grafana", "Prometheus", "OpenObserve", "Monitoring & alerting", "Incident investigation", "On-call support"]
+      },
+      {
+        "category": "Testing & Delivery",
+        "skills": ["Unit testing", "Mocking", "Integration testing", "TDD", "Weekly releases", "Rollout validation"]
       }
     ]
   },
@@ -53,22 +66,25 @@
       "logo": "/zopdev.png",
       "logoAlt": "ZopDev logo",
       "highlights": [
-        "Developed production Go microservices across cloud-resource management, FinOps, notifications, and observability.",
-        "Built Redis-backed asynchronous workers, REST APIs, MySQL workflows, and AWS integrations.",
-        "Executed weekly releases, joined 24-hour on-call rotations, and investigated 30+ production issues.",
-        "Improved API performance through pagination, SQL optimization, indexing, and batched retrieval."
+        "Developed production Go microservices with GoFr across cloud-resource management, FinOps, notifications, and observability.",
+        "Built Redis-backed asynchronous workers, REST APIs, MySQL workflows, and AWS integrations for production services.",
+        "Improved API performance and database efficiency through pagination, indexing, SQL optimization, and batched retrieval that removed N+1-style query patterns.",
+        "Wrote unit tests with mocks across multiple services, achieving approximately 70–90% service-level coverage, and added integration tests for critical customer flows.",
+        "Executed weekly releases to GCP-hosted Kubernetes workloads, validating pods, startup logs, SQL activity, and service errors after deployment.",
+        "Participated in 24-hour on-call rotations and investigated approximately 30+ production issues using Grafana, Prometheus, and OpenObserve."
       ]
     },
     {
       "dates": "May 2024 — July 2024",
-      "location": "Remote / Bengaluru",
+      "location": "Bengaluru · Hybrid",
       "role": "Security Software Developer Intern",
       "company": "Data Security Council of India / CID Karnataka",
       "logo": "/dsci.png",
       "logoAlt": "Data Security Council of India logo",
       "highlights": [
-        "Contributed to an authorized internal OSINT platform for police stakeholders.",
-        "Evaluated and integrated 37 public OSINT APIs across heterogeneous intelligence data.",
+        "Contributed to an authorized internal OSINT platform and Telegram-bot workflow for police stakeholders using Python, Django, and MongoDB.",
+        "Evaluated and integrated 37 public OSINT APIs across heterogeneous intelligence data while keeping sensitive investigative capabilities access-controlled.",
+        "Supported structured intelligence searches and downloadable PDF reporting for approximately 10+ directly engaged police stakeholders.",
         "Received an Appreciation Certificate from the Superintendent of Police, Cybercrime Department, Karnataka."
       ]
     }
@@ -90,7 +106,7 @@
       "type": "FinOps · AWS RDS",
       "title": "Database-level cost attribution",
       "description": "Built a scheduled system that estimated each database's share of a common RDS bill using storage, CPU, and memory weights. It helped a client identify unused databases and contributed to an approximately 70% month-over-month cost reduction.",
-      "details": ["Designed a weighted attribution model using database storage, CPU, and memory consumption.", "Automated scheduled collection and calculation across shared AWS RDS infrastructure.", "Made database-level costs visible so unused resources could be identified and removed."],
+      "details": ["Calculated storage weight from database and index sizes, CPU weight from query-execution time, and memory weight from allocated InnoDB buffer-pool pages.", "Pulled utilization and pricing data through AWS CloudWatch and the AWS SDK, then ran the calculation at scheduled intervals with throttling and rate limiting.", "Made database-level costs visible so unused resources could be identified and removed, contributing to an approximately 70% month-over-month infrastructure-cost reduction."],
       "technologies": ["Go", "AWS SDK", "CloudWatch", "MySQL"],
       "githubUrl": ""
     },
@@ -98,16 +114,16 @@
       "type": "Asynchronous processing",
       "title": "Sequential transition engine",
       "description": "Created restart-resilient Redis workers that preserved one-at-a-time ordering within 100+ resource groups while allowing five workers to process different groups concurrently.",
-      "details": ["Preserved strict sequential execution for operations belonging to the same resource group.", "Allowed independent groups to be processed concurrently across five workers.", "Designed recovery behavior so queued work could safely continue after restarts."],
+      "details": ["Enforced one-at-a-time resource transitions within each group while allowing different groups to progress concurrently.", "Used five asynchronous workers and Redis to queue pending work and track completion across more than 100 resource groups.", "Made processing restart-resilient by skipping completed resources and resuming the unfinished sequence after application restarts."],
       "technologies": ["Go", "Redis", "Workers", "Recovery"],
       "githubUrl": ""
     },
     {
       "type": "Platform communications",
       "title": "Multi-channel notification service",
-      "description": "Built an end-to-end service for Slack, email, Google Chat, and Microsoft Teams with queued dispatch, templates, throttling, actionable messages, and delayed failure retry.",
-      "details": ["Created a common delivery workflow across Slack, email, Google Chat, and Microsoft Teams.", "Added templates, throttling, actionable messages, and queued asynchronous dispatch.", "Handled transient delivery failures through delayed retry processing."],
-      "technologies": ["REST API", "Redis", "MySQL", "Slack API"],
+      "description": "Built the platform's first end-to-end notification service for Slack, email, Google Chat, and Microsoft Teams, supporting an estimated 25,000 notifications per month.",
+      "details": ["Exposed a common REST API with MySQL-backed email templates and actionable Slack messages for initiating platform operations.", "Queued outgoing notifications in Redis and used dedicated workers with throttling and rate limiting to protect downstream services.", "Stored failed deliveries and performed one delayed retry approximately ten minutes after the initial failure."],
+      "technologies": ["Go", "REST API", "Redis", "MySQL", "Slack API", "Gmail SMTP"],
       "githubUrl": ""
     },
     {
@@ -117,11 +133,19 @@
       "details": ["Fine-tuned a T5 transformer model on natural-language and SQL query pairs.", "Evaluated generation across basic and moderately complex query structures.", "Developed the work into research that was published as a technical book chapter."],
       "technologies": ["Python", "T5", "Transformers", "SQL"],
       "githubUrl": ""
+    },
+    {
+      "type": "Web scraping · Price comparison",
+      "title": "Price Easy",
+      "description": "Developed a price-comparison platform that collected and displayed current prices for the same product across multiple e-commerce websites.",
+      "details": ["Used Python and BeautifulSoup to extract current product pricing from multiple e-commerce sources.", "Stored structured product data in MongoDB and presented cross-platform prices in one place.", "Focused on current-price comparison without claiming unsupported historical price tracking."],
+      "technologies": ["Python", "BeautifulSoup", "Web Scraping", "MongoDB"],
+      "githubUrl": ""
     }
   ],
   "achievements": [
-    { "title": "CIDECODE Hackathon 2024 — First Place", "description": "Won a national-level, 24-hour OSINT hackathon at PES University as part of a three-person team. The result led to my internship with DSCI / CID Karnataka." },
-    { "title": "Published Text-to-SQL Research", "description": "Published as a book chapter by CRC Press / Taylor & Francis in Emerging Technologies in AI, Computation, Communication, and Cybersecurity (2025)." },
-    { "title": "B.Tech in Computer Science Engineering", "description": "Graduated from BNM Institute of Technology with a GPA of 9.20 / 10.0." }
+    { "title": "CIDECODE Hackathon 2024 — First Place", "description": "Won a national-level, 24-hour OSINT hackathon at PES University as part of a three-person team. The achievement was recognized by the Chief Minister of Karnataka and led to my internship with DSCI / CID Karnataka." },
+    { "title": "Published Text-to-SQL Research", "description": "Published “Fine-Tuning T5 for Robust Text-to-SQL Translation” as a CRC Press / Taylor & Francis book chapter in Emerging Technologies in AI, Computation, Communication, and Cybersecurity (2025), following acceptance at AICCoNS 2025." },
+    { "title": "Cybercrime Department Appreciation", "description": "Received an Appreciation Certificate from the Superintendent of Police, Cybercrime Department, Karnataka, for contributions to the authorized internal OSINT platform." }
   ]
 }

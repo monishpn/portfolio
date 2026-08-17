@@ -4,13 +4,13 @@ import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import portfolio from "@/data/portfolio.json";
 import ProjectSection from "./project-section";
+import ResumeMenu from "./resume-menu";
 
 export const metadata: Metadata = {
   title: `${portfolio.profile.name} — ${portfolio.profile.title}`,
   description: `Portfolio of ${portfolio.profile.name}, a backend software engineer working with Go, cloud infrastructure, and production systems.`,
 };
 
-const External = () => <span aria-hidden="true">↗</span>;
 const socialIcons = { linkedin: FaLinkedinIn, github: FaGithub, mail: MdEmail };
 
 function SocialIcon({ name }: { name: string }) {
@@ -19,12 +19,12 @@ function SocialIcon({ name }: { name: string }) {
 }
 
 export default function Home() {
-  const { profile, socials, about, experiences, projects, achievements } = portfolio;
+  const { profile, socials, sectionHeadings, footer, about, experiences, projects, achievements } = portfolio;
   return <main>
     <header className="site-header">
       <a className="wordmark" href="#top" aria-label="Go to top">{profile.initials}<span>.</span></a>
       <nav aria-label="Main navigation"><a href="#about">About</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#achievements">Achievements</a></nav>
-      {profile.resumeLink ? <a className="resume-button active" href={profile.resumeLink} target="_blank" rel="noreferrer">View resume <External /></a> : <span className="resume-button" aria-label="Resume link coming soon" title="Add resumeLink in data/portfolio.json">Resume soon</span>}
+      <ResumeMenu resumeLink={profile.resumeLink} />
     </header>
 
     <section className="profile" id="top">
@@ -48,20 +48,26 @@ export default function Home() {
     </section>
 
     <section className="experience section alt" id="experience">
-      <div className="section-heading compact"><p className="eyebrow">Experience</p><h2>Where I&apos;ve worked</h2></div>
+      <div className="section-heading compact"><p className="eyebrow">Experience</p><h2>{sectionHeadings.experience}</h2></div>
       <div className="timeline">{experiences.map(experience => <article key={`${experience.company}-${experience.dates}`}><div className="company-logo"><Image src={experience.logo} alt={experience.logoAlt} width={200} height={200} /></div><div className="timeline-content"><div className="company-heading"><h3>{experience.role}</h3><h4>{experience.company}</h4><p>{experience.dates} · {experience.location}</p></div><ul>{experience.highlights.map((highlight, index) => <li key={`${experience.company}-highlight-${index}`}>{highlight}</li>)}</ul></div></article>)}</div>
     </section>
 
     <section className="projects section" id="projects">
-      <div className="section-heading compact"><p className="eyebrow">Projects</p><h2>Selected engineering work</h2></div>
+      <div className="section-heading compact"><p className="eyebrow">Projects</p><h2>{sectionHeadings.projects}</h2></div>
       <ProjectSection projects={projects} />
     </section>
 
     <section className="achievements section alt" id="achievements">
-      <div className="section-heading compact"><p className="eyebrow">Achievements</p><h2>Milestones I&apos;m proud of</h2></div>
+      <div className="section-heading compact"><p className="eyebrow">Achievements</p><h2>{sectionHeadings.achievements}</h2></div>
       <div className="achievement-list">{achievements.map((achievement,index) => <article key={achievement.title}><span>{String(index+1).padStart(2,"0")}</span><div><h3>{achievement.title}</h3><p>{achievement.description}</p></div></article>)}</div>
     </section>
 
-    <footer><div><p className="eyebrow">Get in touch</p><h2>Let&apos;s build something dependable.</h2></div><div className="footer-actions"><a href={`mailto:${profile.email}`}>{profile.email} <External /></a>{socials.filter(social => social.name === "LinkedIn").map(social => <a key={social.name} href={social.url} target="_blank" rel="noreferrer">{social.name} <External /></a>)}</div><p className="copyright">© 2026 {profile.name} · {profile.location}</p></footer>
+    <footer>
+      <div className="footer-main">
+        <div className="footer-intro"><p className="eyebrow">Let&apos;s connect</p><h2>{footer.headline}</h2><p>{footer.message}</p></div>
+        <div className="footer-contact"><p className="footer-label">Start a conversation</p><div className="footer-action-row"><a className="email-action" href={`mailto:${profile.email}`}><SocialIcon name="mail" /><span><small>Email me</small>{profile.email}</span></a><div className="footer-socials">{socials.filter(social => social.url.startsWith("http")).map(social => <a key={social.name} href={social.url} target="_blank" rel="noreferrer"><SocialIcon name={social.icon} />{social.name}</a>)}</div></div></div>
+      </div>
+      <div className="footer-bottom"><p>© 2026 {profile.name} · {profile.location}</p><a href="#top">Back to top <span aria-hidden="true">↑</span></a></div>
+    </footer>
   </main>;
 }
