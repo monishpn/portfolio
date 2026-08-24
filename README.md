@@ -7,6 +7,7 @@ Personal portfolio for Monish P N, a backend software engineer specializing in G
 ```bash
 npm install
 npm run dev
+
 ```
 
 Open `http://localhost:3000`.
