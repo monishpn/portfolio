@@ -71,6 +71,8 @@ export default function PortfolioClient({ data }: { data: PortfolioData }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [focusedProject, setFocusedProject] = useState(0);
   const heroRef = useRef<HTMLElement>(null);
+  const projectConsoleRef = useRef<HTMLDivElement>(null);
+  const projectIndexRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 110, damping: 28, mass: .25 });
@@ -80,6 +82,49 @@ export default function PortfolioClient({ data }: { data: PortfolioData }) {
     const observers = sectionIds.map(id => { const element = document.getElementById(id); if (!element) return null; const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setActive(id); }, { rootMargin: "-38% 0px -52%", threshold: 0 }); observer.observe(element); return observer; });
     return () => observers.forEach(observer => observer?.disconnect());
   }, []);
+
+  useEffect(() => {
+    const consoleElement = projectConsoleRef.current;
+    const list = projectIndexRef.current;
+    if (!consoleElement || !list) return;
+    const handleWheel = (event: WheelEvent) => {
+      if (window.innerWidth <= 640) return;
+      const atTop = list.scrollTop <= 0;
+      const atBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 1;
+      if ((event.deltaY > 0 && !atBottom) || (event.deltaY < 0 && !atTop)) {
+        event.preventDefault();
+        list.scrollTop += event.deltaY;
+      }
+    };
+    consoleElement.addEventListener("wheel", handleWheel, { passive: false });
+    return () => consoleElement.removeEventListener("wheel", handleWheel);
+  }, []);
+
+  useEffect(() => {
+    const list = projectIndexRef.current;
+    const monitor = projectConsoleRef.current?.querySelector<HTMLElement>(".project-monitor");
+    if (!list || !monitor) return;
+    let frame = 0;
+    const updateMobileProject = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        if (window.innerWidth > 640) return;
+        const cards = Array.from(list.querySelectorAll<HTMLElement>("[data-project-index]"));
+        const anchor = Math.min(window.innerHeight - 72, monitor.getBoundingClientRect().bottom + 64);
+        let next = 0;
+        cards.forEach((card, index) => { if (card.getBoundingClientRect().top <= anchor) next = index; });
+        setFocusedProject(current => current === next ? current : next);
+      });
+    };
+    updateMobileProject();
+    window.addEventListener("scroll", updateMobileProject, { passive: true });
+    window.addEventListener("resize", updateMobileProject);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", updateMobileProject);
+      window.removeEventListener("resize", updateMobileProject);
+    };
+  }, [projects.length]);
 
   function moveGrid(event: React.PointerEvent<HTMLElement>) {
     if (reduced || !heroRef.current) return;
@@ -113,7 +158,7 @@ export default function PortfolioClient({ data }: { data: PortfolioData }) {
     <section className="editorial-section projects-section" id="projects">
       <div className="section-index">03 / SELECTED WORK</div>
       <Reveal className="section-title"><p>Systems / Research / Tools</p><h2>Choose a system.<br/><em>Inspect the build.</em></h2></Reveal>
-      <div className="project-console">
+      <div className="project-console" ref={projectConsoleRef}>
         <div className="project-monitor">
           <AnimatePresence mode="wait">
             <motion.div key={projects[focusedProject].title} initial={reduced ? false : { opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: .3 }}>
@@ -122,10 +167,10 @@ export default function PortfolioClient({ data }: { data: PortfolioData }) {
             </motion.div>
           </AnimatePresence>
         </div>
-        <div className="project-index">
-          {projects.map((project, index) => <article key={project.title} className={focusedProject === index ? "active" : ""} onMouseEnter={() => setFocusedProject(index)} onFocus={() => setFocusedProject(index)}>
+        <div className="project-index" ref={projectIndexRef}>
+          {projects.map((project, index) => <article key={project.title} data-project-index={index} className={focusedProject === index ? "active" : ""} onMouseEnter={() => setFocusedProject(index)} onFocus={() => setFocusedProject(index)}>
             <button className="project-select" type="button" onClick={() => setFocusedProject(index)} aria-label={`Preview ${project.title}`}><span>{String(index + 1).padStart(2, "0")}</span><div><small>{project.type}</small><h3>{project.title}</h3><p>{project.description}</p></div><FaArrowRight/></button>
-            <div className="project-index-actions"><button type="button" onClick={() => setSelectedProject(project)}>Case study</button>{project.githubUrl ? <a href={project.githubUrl} target="_blank" rel="noreferrer" aria-label={`${project.title} on GitHub`}><FaGithub/> GitHub</a> : <span>Private build</span>}</div>
+            <div className="project-index-actions"><button type="button" onClick={() => setSelectedProject(project)}>Project info</button>{project.githubUrl ? <a href={project.githubUrl} target="_blank" rel="noreferrer" aria-label={`${project.title} on GitHub`}><FaGithub/> GitHub</a> : <span>Private build</span>}</div>
           </article>)}
         </div>
       </div>

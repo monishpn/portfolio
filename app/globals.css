@@ -147,14 +147,14 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
 .about-body p { margin: 0 0 22px; color: #b9b6ac; font-size: 17px; line-height: 1.7; }
 .status-line { display: flex; align-items: center; gap: 10px; margin-top: 32px; color: var(--yellow); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .status-line i { width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 5px rgba(255,216,0,.1); }
-.skill-system { margin-top: 96px; border: 1px solid var(--line); background: #0e0e0b; }
-.skill-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.skill-system { margin-top: 72px; border: 1px solid var(--line); background: #0e0e0b; }
+.skill-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 17px; border-bottom: 1px solid var(--line); }
 .skill-header p, .skill-header span { margin: 0; color: #85837a; font-size: 9px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 .skill-header p { color: var(--yellow); }
-.skill-track { display: grid; grid-auto-flow: column; grid-auto-columns: 260px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-color: var(--yellow) #29281f; scrollbar-width: thin; }
-.skill-track article { min-height: 270px; padding: 24px; border-right: 1px solid var(--line); scroll-snap-align: start; }
+.skill-track { display: grid; grid-auto-flow: column; grid-auto-columns: 235px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-color: var(--yellow) #29281f; scrollbar-width: thin; }
+.skill-track article { min-height: 220px; padding: 18px; border-right: 1px solid var(--line); scroll-snap-align: start; }
 .skill-number { color: #5c5a51; font-family: monospace; font-size: 11px; }
-.skill-track h3 { margin: 54px 0 22px; font-family: Impact, "Arial Narrow", sans-serif; font-size: 27px; font-weight: 400; letter-spacing: .02em; text-transform: uppercase; }
+.skill-track h3 { margin: 34px 0 17px; font-family: Impact, "Arial Narrow", sans-serif; font-size: 24px; font-weight: 400; letter-spacing: .02em; text-transform: uppercase; }
 .skill-track article > div { display: flex; flex-wrap: wrap; gap: 7px; }
 .skill-track article > div span, .tech-row span { padding: 6px 8px; border: 1px solid #3d3b31; color: #aaa79e; font-size: 10px; }
 .skill-track article > div span { cursor: default; transition: border-color .2s, background .2s, color .2s, transform .2s, box-shadow .2s; }
@@ -454,11 +454,12 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
   .resume-toggle { min-height: 38px; padding: 0 11px; }
   .resume-popover { top: calc(100% + 14px); width: min(250px, calc(100vw - 40px)); }
   .kinetic-hero { min-height: auto; grid-template-columns: 1fr; gap: 48px; padding: 112px 20px 78px; }
-  .command-hero { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 690px auto 34px; gap: 8px; padding: 84px 14px 18px; }
-  .hero-scene { grid-column: 1 / 3; grid-row: 1; }
-  .hero-scene-image { object-position: 68% center; }
-  .hero-scene::after { background: linear-gradient(180deg, rgba(7,7,5,.02) 14%, rgba(7,7,5,.24) 38%, rgba(7,7,5,.94) 65%, #070705 100%); }
-  .command-intro { width: 100%; justify-content: flex-end; padding: 30px 22px; }
+  .command-hero { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto 34px; gap: 8px; padding: 84px 14px 18px; }
+  .hero-scene { display: flex; grid-column: 1 / 3; grid-row: 1; flex-direction: column; }
+  .hero-scene-image { position: relative; inset: auto; width: 148%; height: auto; flex: 0 0 auto; align-self: flex-end; content: url("/monish-avatar.png"); object-fit: cover; object-position: center top; background: #070705; transform: translateX(4%); transform-origin: center top; }
+  .hero-scene:hover .hero-scene-image { transform: translateX(4%); }
+  .hero-scene::after { background: linear-gradient(180deg, transparent 0 48%, rgba(7,7,5,.3) 58%, #070705 72%); }
+  .command-intro { width: 100%; height: auto; justify-content: flex-start; padding: 34px 22px 38px; }
   .command-intro h1 { font-size: clamp(62px, 21vw, 92px); }
   .command-intro .hero-label { margin-bottom: 16px; }
   .command-intro .hero-intro { margin-top: 16px; }
@@ -487,13 +488,19 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
   .section-title h2 { font-size: clamp(48px, 15vw, 68px); }
   .about-layout { grid-template-columns: 1fr; gap: 40px; margin-top: 55px; }
   .about-body p { font-size: 15px; }
-  .skill-system { margin-top: 60px; }
-  .skill-track { grid-auto-columns: 225px; }
-  .skill-track article { min-height: 240px; padding: 20px; }
+  .skill-system { margin-top: 42px; }
+  .skill-header { padding: 10px 12px; }
+  .skill-track { height: auto; grid-auto-columns: 178px; align-items: start; }
+  .skill-track article { height: 100%; min-height: 170px; align-self: stretch; overflow: visible; padding: 13px; }
+  .skill-track h3 { margin: 20px 0 12px; font-size: 20px; }
+  .skill-track article > div { gap: 5px; }
+  .skill-track article > div span { padding: 5px 6px; font-size: 9px; }
   .project-list { margin-top: 55px; }
-  .project-console { height: auto; grid-template-columns: 1fr; margin-top: 55px; overflow: visible; }
-  .project-monitor { position: relative; top: auto; height: auto; min-height: 500px; }
+  .project-console { display: block; height: auto; margin-top: 55px; overflow: visible; }
+  .project-monitor { position: sticky; top: 66px; height: 470px; min-height: 0; align-self: start; box-shadow: 0 12px 24px rgba(9,9,7,.24); }
   .project-index { height: auto; overflow-y: visible; }
+  .project-index article { display: flex; min-height: clamp(270px, 42vh, 340px); flex-direction: column; justify-content: center; }
+  .project-index article.active { box-shadow: inset 4px 0 0 #807115; }
   .project-monitor > div { padding: 18px; }
   .project-graphic { width: 100%; height: 390px; transform: none; }
   .db-cost-card { height: 72px; }
@@ -563,7 +570,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
   .monogram.compact { font-size: 19px; }
   .resume-toggle { padding: 0 9px; font-size: 9px; }
   .nav-actions { gap: 7px; }
-  .command-hero { grid-template-rows: 640px auto 34px; padding-right: 10px; padding-left: 10px; }
+  .command-hero { grid-template-rows: auto auto 34px; padding-right: 10px; padding-left: 10px; }
   .command-intro { padding: 26px 16px; }
   .command-intro h1 { font-size: clamp(56px, 19vw, 76px); }
   .command-intro .hero-intro { font-size: 14px; line-height: 1.5; }
@@ -574,8 +581,9 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
   .platform-card { padding: 12px; }
   .platform-links a { min-height: 46px; }
   .section-title h2 { font-size: clamp(43px, 14vw, 58px); }
-  .skill-track { grid-auto-columns: min(215px, calc(100vw - 48px)); }
-  .project-monitor { min-height: 470px; }
+  .skill-track { height: auto; grid-auto-columns: min(172px, calc(100vw - 42px)); }
+  .skill-track article { height: 100%; }
+  .project-monitor { top: 66px; height: 430px; min-height: 0; }
   .project-monitor > div { padding: 14px; }
   .project-graphic { height: 370px; }
   .graphic-caption { font-size: 7px; }
