@@ -455,12 +455,19 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
   .resume-toggle { min-height: 38px; padding: 0 11px; }
   .resume-popover { top: calc(100% + 14px); width: min(250px, calc(100vw - 40px)); }
   .kinetic-hero { min-height: auto; grid-template-columns: 1fr; gap: 48px; padding: 112px 20px 78px; }
-  .command-hero { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 900px auto 34px; gap: 8px; padding: 84px 14px 18px; }
+  .command-hero { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 900px auto 34px; gap: 8px; margin-bottom: -170px; padding: 84px 14px 18px; }
   .hero-scene { grid-column: 1 / 3; grid-row: 1; }
-  .hero-scene-image { content: url("/monish-avatar.png"); object-fit: cover; object-position: center top; transform: translateY(-14px) scale(1.025); }
-  .hero-scene:hover .hero-scene-image { transform: translateY(-14px) scale(1.025); }
+.hero-scene-image {
+  content: url("/monish-avatar.png");
+  object-fit: contain;
+  object-position: 10% top;
+  background: #070705;
+  transform: translate(100px, 220px) scale(1.55);
+  transition: none;
+}
+  .hero-scene:hover .hero-scene-image { transform: translate(100px, 220px) scale(1.55); }
   .hero-scene::after { background: linear-gradient(180deg, rgba(7,7,5,0) 0 43%, rgba(7,7,5,.45) 57%, rgba(7,7,5,.96) 76%, #070705 100%); }
-  .command-intro { position: absolute; inset: 0; width: 100%; height: 100%; justify-content: flex-end; padding: 30px 22px 34px; }
+  .command-intro { position: absolute; inset: 0; width: 100%; height: 100%; justify-content: flex-end; padding: 30px 22px 34px; transform: translateY(-170px); }
   .command-intro h1 { flex-wrap: nowrap; font-size: clamp(62px, 21vw, 92px); white-space: nowrap; }
   .command-intro h1 span:not(:first-child) { display: none; }
   .command-intro .hero-label { margin-bottom: 16px; }
@@ -473,10 +480,10 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
   .release-flow { display: grid; grid-template-columns: auto 1fr; gap: 3px 6px; }
   .release-flow i { display: none; }
   .build-card { grid-column: 1 / 3; grid-row: 3; }
-  .platform-card { grid-column: 1 / 3; grid-row: 2; padding: 14px; }
+  .platform-card { top: -170px; grid-column: 1 / 3; grid-row: 2; padding: 14px; }
   .platform-links { grid-template-columns: 1fr; gap: 7px; margin-top: 12px; }
   .platform-links a { min-height: 48px; padding: 9px 11px; }
-  .hero-ticker { grid-column: 1 / 3; grid-row: 3; }
+  .hero-ticker { top: -170px; grid-column: 1 / 3; grid-row: 3; }
   .hero-label { margin-bottom: 24px; }
   .hero-copy h1 { font-size: clamp(64px, 23vw, 94px); }
   .hero-role { align-items: flex-start; flex-direction: column; gap: 7px; }
