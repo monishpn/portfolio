@@ -5,8 +5,8 @@
     "title": "Backend Software Engineer",
     "location": "Bengaluru, India",
     "availability": "Open to backend engineering opportunities",
-    "photo": "/monish-profile.jpeg",
-    "photoAlt": "Portrait of Monish P N",
+    "photo": "/monish-hero-wide.png",
+    "photoAlt": "Illustrated portrait of Monish P N",
     "email": "pnmonish187@gmail.com",
     "resumeLink": "https://drive.google.com/file/d/1JwLq87khbxTnEVE6_ghbr2oHsTF6zdP1/view"
   },
@@ -91,8 +91,54 @@
   ],
   "projects": [
     {
+      "type": "FinOps · AWS RDS",
+      "title": "Database-level cost attribution",
+      "role": "Backend Engineer",
+      "year": "2026",
+      "description": "Built a scheduled system that estimated each database's share of a common RDS bill using storage, CPU, and memory weights. It helped a client identify unused databases and contributed to an approximately 70% month-over-month cost reduction.",
+      "details": ["Calculated storage weight from database and index sizes, CPU weight from query-execution time, and memory weight from allocated InnoDB buffer-pool pages.", "Pulled utilization and pricing data through AWS CloudWatch and the AWS SDK, then ran the calculation at scheduled intervals with throttling and rate limiting.", "Made database-level costs visible so unused resources could be identified and removed, contributing to an approximately 70% month-over-month infrastructure-cost reduction."],
+      "technologies": ["Go", "AWS SDK", "CloudWatch", "MySQL"],
+      "githubUrl": "",
+      "liveUrl": ""
+    },
+    {
+      "type": "Asynchronous processing",
+      "title": "Sequential transition engine",
+      "role": "Backend Engineer",
+      "year": "2025",
+      "description": "Created restart-resilient Redis workers that preserved one-at-a-time ordering within 100+ resource groups while allowing five workers to process different groups concurrently.",
+      "details": ["Enforced one-at-a-time resource transitions within each group while allowing different groups to progress concurrently.", "Used five asynchronous workers and Redis to queue pending work and track completion across more than 100 resource groups.", "Made processing restart-resilient by skipping completed resources and resuming the unfinished sequence after application restarts."],
+      "technologies": ["Go", "Redis", "Workers", "Recovery"],
+      "githubUrl": "",
+      "liveUrl": ""
+    },
+    {
+      "type": "Platform communications",
+      "title": "Multi-channel notification service",
+      "role": "Backend Engineer",
+      "year": "2025",
+      "description": "Built the platform's first end-to-end notification service for Slack, email, Google Chat, and Microsoft Teams, supporting an estimated 25,000 notifications per month.",
+      "details": ["Exposed a common REST API with MySQL-backed email templates and actionable Slack messages for initiating platform operations.", "Queued outgoing notifications in Redis and used dedicated workers with throttling and rate limiting to protect downstream services.", "Stored failed deliveries and performed one delayed retry approximately ten minutes after the initial failure."],
+      "technologies": ["Go", "REST API", "Redis", "MySQL", "Slack API", "Gmail SMTP"],
+      "githubUrl": "",
+      "liveUrl": ""
+    },
+    {
+      "type": "Retrieval augmented generation",
+      "title": "Scholarship RAG",
+      "role": "Creator & Developer",
+      "year": "2026",
+      "description": "Built a scholarship-focused RAG system that converts a dense scholarship guide into grounded, cited answers and abstains when the available evidence is insufficient.",
+      "details": ["Extracts and chunks the scholarship source PDF while preserving page and section references for traceable answers.", "Retrieves candidates with BM25 and TF-IDF, then combines their rankings with Reciprocal Rank Fusion.", "Uses scholarship-specific routing and abstention logic to avoid generating confident responses without adequate supporting evidence.", "Optionally uses a local Ollama model to transform retrieved evidence into a natural-language response with citations."],
+      "technologies": ["Python", "BM25", "TF-IDF", "Reciprocal Rank Fusion", "Ollama", "RAG"],
+      "githubUrl": "https://github.com/monishpn/scholarship_rag",
+      "liveUrl": ""
+    },
+    {
       "type": "Browser extension · Job search",
       "title": "JD Lens",
+      "role": "Creator & Developer",
+      "year": "2026",
       "description": "Built a browser extension that displays the most useful details from a LinkedIn job post in a floating panel, removing the need to repeatedly expand and scan the full description.",
       "details": [
         "Extracts and summarizes the role, company, location, required experience, and preferred skills directly from the active job page.",
@@ -100,47 +146,19 @@
         "Uses a platform-adapter architecture so support for additional job sites can be added without rewriting the shared parsing and presentation logic."
       ],
       "technologies": ["JavaScript", "Chrome Extension", "Manifest V3", "DOM Parsing"],
-      "githubUrl": "https://github.com/monishpn/job-lens"
-    },
-    {
-      "type": "FinOps · AWS RDS",
-      "title": "Database-level cost attribution",
-      "description": "Built a scheduled system that estimated each database's share of a common RDS bill using storage, CPU, and memory weights. It helped a client identify unused databases and contributed to an approximately 70% month-over-month cost reduction.",
-      "details": ["Calculated storage weight from database and index sizes, CPU weight from query-execution time, and memory weight from allocated InnoDB buffer-pool pages.", "Pulled utilization and pricing data through AWS CloudWatch and the AWS SDK, then ran the calculation at scheduled intervals with throttling and rate limiting.", "Made database-level costs visible so unused resources could be identified and removed, contributing to an approximately 70% month-over-month infrastructure-cost reduction."],
-      "technologies": ["Go", "AWS SDK", "CloudWatch", "MySQL"],
-      "githubUrl": ""
-    },
-    {
-      "type": "Asynchronous processing",
-      "title": "Sequential transition engine",
-      "description": "Created restart-resilient Redis workers that preserved one-at-a-time ordering within 100+ resource groups while allowing five workers to process different groups concurrently.",
-      "details": ["Enforced one-at-a-time resource transitions within each group while allowing different groups to progress concurrently.", "Used five asynchronous workers and Redis to queue pending work and track completion across more than 100 resource groups.", "Made processing restart-resilient by skipping completed resources and resuming the unfinished sequence after application restarts."],
-      "technologies": ["Go", "Redis", "Workers", "Recovery"],
-      "githubUrl": ""
-    },
-    {
-      "type": "Platform communications",
-      "title": "Multi-channel notification service",
-      "description": "Built the platform's first end-to-end notification service for Slack, email, Google Chat, and Microsoft Teams, supporting an estimated 25,000 notifications per month.",
-      "details": ["Exposed a common REST API with MySQL-backed email templates and actionable Slack messages for initiating platform operations.", "Queued outgoing notifications in Redis and used dedicated workers with throttling and rate limiting to protect downstream services.", "Stored failed deliveries and performed one delayed retry approximately ten minutes after the initial failure."],
-      "technologies": ["Go", "REST API", "Redis", "MySQL", "Slack API", "Gmail SMTP"],
-      "githubUrl": ""
-    },
-    {
-      "type": "Applied machine learning",
-      "title": "Text-to-SQL with T5",
-      "description": "Fine-tuned a T5 model to translate natural-language questions into basic to moderately complex SQL queries. The research was later published as a technical book chapter.",
-      "details": ["Fine-tuned a T5 transformer model on natural-language and SQL query pairs.", "Evaluated generation across basic and moderately complex query structures.", "Developed the work into research that was published as a technical book chapter."],
-      "technologies": ["Python", "T5", "Transformers", "SQL"],
-      "githubUrl": ""
+      "githubUrl": "https://github.com/monishpn/job-lens",
+      "liveUrl": ""
     },
     {
       "type": "Web scraping · Price comparison",
       "title": "Price Easy",
+      "role": "Developer",
+      "year": "2023",
       "description": "Developed a price-comparison platform that collected and displayed current prices for the same product across multiple e-commerce websites.",
       "details": ["Used Python and BeautifulSoup to extract current product pricing from multiple e-commerce sources.", "Stored structured product data in MongoDB and presented cross-platform prices in one place.", "Focused on current-price comparison without claiming unsupported historical price tracking."],
       "technologies": ["Python", "BeautifulSoup", "Web Scraping", "MongoDB"],
-      "githubUrl": ""
+      "githubUrl": "",
+      "liveUrl": ""
     }
   ],
   "achievements": [
