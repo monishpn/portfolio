@@ -283,6 +283,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
 .project-index-actions button, .project-index-actions a { display: inline-flex; align-items: center; gap: 7px; padding: 8px 10px; border: 1px solid #26251f; background: transparent; color: var(--ink); font-size: 9px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
 .project-index-actions button:hover, .project-index-actions a:hover { background: var(--ink); color: var(--yellow); }
 .project-index-actions > span { color: #77746a; font-size: 8px; font-weight: 800; text-transform: uppercase; }
+.mobile-project-feed { display: none; }
 @keyframes metric-flow { from { left: 0; } to { left: calc(100% - 7px); } }
 @keyframes usage-pulse { 0%,100%{opacity:.45;transform:scaleX(.72)} 50%{opacity:1;transform:scaleX(1)} }
 @keyframes resource-state { 0%, 30%, 100% { background: transparent; box-shadow: none; } 10%, 20% { background: var(--yellow); box-shadow: 0 0 8px rgba(255,216,0,.45); } }
@@ -454,13 +455,14 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
   .resume-toggle { min-height: 38px; padding: 0 11px; }
   .resume-popover { top: calc(100% + 14px); width: min(250px, calc(100vw - 40px)); }
   .kinetic-hero { min-height: auto; grid-template-columns: 1fr; gap: 48px; padding: 112px 20px 78px; }
-  .command-hero { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto 34px; gap: 8px; padding: 84px 14px 18px; }
-  .hero-scene { display: flex; grid-column: 1 / 3; grid-row: 1; flex-direction: column; }
-  .hero-scene-image { position: relative; inset: auto; width: 148%; height: auto; flex: 0 0 auto; align-self: flex-end; content: url("/monish-avatar.png"); object-fit: cover; object-position: center top; background: #070705; transform: translateX(4%); transform-origin: center top; }
-  .hero-scene:hover .hero-scene-image { transform: translateX(4%); }
-  .hero-scene::after { background: linear-gradient(180deg, transparent 0 48%, rgba(7,7,5,.3) 58%, #070705 72%); }
-  .command-intro { width: 100%; height: auto; justify-content: flex-start; padding: 34px 22px 38px; }
-  .command-intro h1 { font-size: clamp(62px, 21vw, 92px); }
+  .command-hero { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 900px auto 34px; gap: 8px; padding: 84px 14px 18px; }
+  .hero-scene { grid-column: 1 / 3; grid-row: 1; }
+  .hero-scene-image { content: url("/monish-avatar.png"); object-fit: cover; object-position: center top; transform: translateY(-14px) scale(1.025); }
+  .hero-scene:hover .hero-scene-image { transform: translateY(-14px) scale(1.025); }
+  .hero-scene::after { background: linear-gradient(180deg, rgba(7,7,5,0) 0 43%, rgba(7,7,5,.45) 57%, rgba(7,7,5,.96) 76%, #070705 100%); }
+  .command-intro { position: absolute; inset: 0; width: 100%; height: 100%; justify-content: flex-end; padding: 30px 22px 34px; }
+  .command-intro h1 { flex-wrap: nowrap; font-size: clamp(62px, 21vw, 92px); white-space: nowrap; }
+  .command-intro h1 span:not(:first-child) { display: none; }
   .command-intro .hero-label { margin-bottom: 16px; }
   .command-intro .hero-intro { margin-top: 16px; }
   .command-intro .hero-actions { margin-top: 20px; }
@@ -496,11 +498,19 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
   .skill-track article > div { gap: 5px; }
   .skill-track article > div span { padding: 5px 6px; font-size: 9px; }
   .project-list { margin-top: 55px; }
-  .project-console { display: block; height: auto; margin-top: 55px; overflow: visible; }
-  .project-monitor { position: sticky; top: 66px; height: 470px; min-height: 0; align-self: start; box-shadow: 0 12px 24px rgba(9,9,7,.24); }
-  .project-index { height: auto; overflow-y: visible; }
-  .project-index article { display: flex; min-height: clamp(270px, 42vh, 340px); flex-direction: column; justify-content: center; }
-  .project-index article.active { box-shadow: inset 4px 0 0 #807115; }
+  .project-console { display: none; }
+  .mobile-project-feed { display: grid; gap: 54px; margin-top: 55px; }
+  .mobile-project-story { overflow: hidden; border: 1px solid rgba(9,9,7,.3); background: #dedbd0; }
+  .mobile-project-story > header { display: grid; grid-template-columns: 28px 1fr; gap: 8px 10px; padding: 20px 18px; border-bottom: 1px solid rgba(9,9,7,.25); }
+  .mobile-project-story > header span { grid-row: 1 / 3; color: #77746a; font-family: monospace; font-size: 10px; }
+  .mobile-project-story > header small { color: #6d6a61; font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .mobile-project-story > header h3 { margin: 0; font-family: Impact, "Arial Narrow", sans-serif; font-size: clamp(30px, 9vw, 42px); font-weight: 400; line-height: .95; text-transform: uppercase; }
+  .mobile-project-visual { height: 430px; overflow: hidden; background: #10100d; color: var(--paper); }
+  .mobile-project-visual .project-graphic { height: 100%; padding: 16px; }
+  .mobile-project-story > p { margin: 0; padding: 22px 18px 14px; color: #55534d; font-size: 15px; line-height: 1.65; }
+  .mobile-project-actions { display: flex; align-items: center; gap: 9px; padding: 4px 18px 22px; }
+  .mobile-project-actions button, .mobile-project-actions a { display: inline-flex; min-height: 42px; align-items: center; gap: 7px; padding: 0 13px; border: 1px solid #26251f; background: transparent; color: var(--ink); font-size: 10px; font-weight: 800; text-transform: uppercase; }
+  .mobile-project-actions span { color: #77746a; font-size: 9px; font-weight: 800; text-transform: uppercase; }
   .project-monitor > div { padding: 18px; }
   .project-graphic { width: 100%; height: 390px; transform: none; }
   .db-cost-card { height: 72px; }
@@ -570,7 +580,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
   .monogram.compact { font-size: 19px; }
   .resume-toggle { padding: 0 9px; font-size: 9px; }
   .nav-actions { gap: 7px; }
-  .command-hero { grid-template-rows: auto auto 34px; padding-right: 10px; padding-left: 10px; }
+  .command-hero { grid-template-rows: 900px auto 34px; padding-right: 10px; padding-left: 10px; }
   .command-intro { padding: 26px 16px; }
   .command-intro h1 { font-size: clamp(56px, 19vw, 76px); }
   .command-intro .hero-intro { font-size: 14px; line-height: 1.5; }
@@ -586,6 +596,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outlin
   .project-monitor { top: 66px; height: 430px; min-height: 0; }
   .project-monitor > div { padding: 14px; }
   .project-graphic { height: 370px; }
+  .mobile-project-visual { height: 390px; }
+  .mobile-project-visual .project-graphic { height: 100%; }
   .graphic-caption { font-size: 7px; }
   .graphic-caption i { font-size: 6px; }
   .sequence-simulator { height: 330px; }

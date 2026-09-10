@@ -100,32 +100,6 @@ export default function PortfolioClient({ data }: { data: PortfolioData }) {
     return () => consoleElement.removeEventListener("wheel", handleWheel);
   }, []);
 
-  useEffect(() => {
-    const list = projectIndexRef.current;
-    const monitor = projectConsoleRef.current?.querySelector<HTMLElement>(".project-monitor");
-    if (!list || !monitor) return;
-    let frame = 0;
-    const updateMobileProject = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        if (window.innerWidth > 640) return;
-        const cards = Array.from(list.querySelectorAll<HTMLElement>("[data-project-index]"));
-        const anchor = Math.min(window.innerHeight - 72, monitor.getBoundingClientRect().bottom + 64);
-        let next = 0;
-        cards.forEach((card, index) => { if (card.getBoundingClientRect().top <= anchor) next = index; });
-        setFocusedProject(current => current === next ? current : next);
-      });
-    };
-    updateMobileProject();
-    window.addEventListener("scroll", updateMobileProject, { passive: true });
-    window.addEventListener("resize", updateMobileProject);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", updateMobileProject);
-      window.removeEventListener("resize", updateMobileProject);
-    };
-  }, [projects.length]);
-
   function moveGrid(event: React.PointerEvent<HTMLElement>) {
     if (reduced || !heroRef.current) return;
     const rect = heroRef.current.getBoundingClientRect(); heroRef.current.style.setProperty("--pointer-x", `${event.clientX - rect.left}px`); heroRef.current.style.setProperty("--pointer-y", `${event.clientY - rect.top}px`);
@@ -173,6 +147,14 @@ export default function PortfolioClient({ data }: { data: PortfolioData }) {
             <div className="project-index-actions"><button type="button" onClick={() => setSelectedProject(project)}>Project info</button>{project.githubUrl ? <a href={project.githubUrl} target="_blank" rel="noreferrer" aria-label={`${project.title} on GitHub`}><FaGithub/> GitHub</a> : <span>Private build</span>}</div>
           </article>)}
         </div>
+      </div>
+      <div className="mobile-project-feed">
+        {projects.map((project, index) => <article className="mobile-project-story" key={`mobile-${project.title}`}>
+          <header><span>{String(index + 1).padStart(2, "0")}</span><small>{project.type}</small><h3>{project.title}</h3></header>
+          <div className="mobile-project-visual"><ProjectGraphic title={project.title}/></div>
+          <p>{project.description}</p>
+          <div className="mobile-project-actions"><button type="button" onClick={() => setSelectedProject(project)}>Project info</button>{project.githubUrl ? <a href={project.githubUrl} target="_blank" rel="noreferrer"><FaGithub/> GitHub</a> : <span>Private build</span>}</div>
+        </article>)}
       </div>
     </section>
 
