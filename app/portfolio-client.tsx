@@ -73,10 +73,15 @@ export default function PortfolioClient({ data }: { data: PortfolioData }) {
   const heroRef = useRef<HTMLElement>(null);
   const projectConsoleRef = useRef<HTMLDivElement>(null);
   const projectIndexRef = useRef<HTMLDivElement>(null);
+  const focusedProjectRef = useRef(0);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 110, damping: 28, mass: .25 });
   const closeProject = useCallback(() => setSelectedProject(null), []);
+  const focusProject = useCallback((index: number) => {
+    focusedProjectRef.current = index;
+    setFocusedProject(index);
+  }, []);
 
   useEffect(() => {
     const observers = sectionIds.map(id => { const element = document.getElementById(id); if (!element) return null; const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setActive(id); }, { rootMargin: "-38% 0px -52%", threshold: 0 }); observer.observe(element); return observer; });
@@ -87,18 +92,35 @@ export default function PortfolioClient({ data }: { data: PortfolioData }) {
     const consoleElement = projectConsoleRef.current;
     const list = projectIndexRef.current;
     if (!consoleElement || !list) return;
+    let wheelGestureActive = false;
+    let wheelTimer: ReturnType<typeof setTimeout> | undefined;
     const handleWheel = (event: WheelEvent) => {
       if (window.innerWidth <= 640) return;
-      const atTop = list.scrollTop <= 0;
-      const atBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 1;
-      if ((event.deltaY > 0 && !atBottom) || (event.deltaY < 0 && !atTop)) {
+      if (Math.abs(event.deltaY) < 3) return;
+      if (wheelGestureActive) {
         event.preventDefault();
-        list.scrollTop += event.deltaY;
+        event.stopImmediatePropagation();
+        if (wheelTimer) clearTimeout(wheelTimer);
+        wheelTimer = setTimeout(() => { wheelGestureActive = false; }, 180);
+        return;
       }
+      const direction = event.deltaY > 0 ? 1 : -1;
+      const nextIndex = focusedProjectRef.current + direction;
+      if (nextIndex < 0 || nextIndex >= projects.length) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      wheelGestureActive = true;
+      focusProject(nextIndex);
+      const nextItem = list.querySelector<HTMLElement>(`[data-project-index="${nextIndex}"]`);
+      if (nextItem) list.scrollTo({ top: nextItem.offsetTop, behavior: "auto" });
+      wheelTimer = setTimeout(() => { wheelGestureActive = false; }, 180);
     };
-    consoleElement.addEventListener("wheel", handleWheel, { passive: false });
-    return () => consoleElement.removeEventListener("wheel", handleWheel);
-  }, []);
+    consoleElement.addEventListener("wheel", handleWheel, { capture: true, passive: false });
+    return () => {
+      if (wheelTimer) clearTimeout(wheelTimer);
+      consoleElement.removeEventListener("wheel", handleWheel, true);
+    };
+  }, [focusProject, projects.length]);
 
   function moveGrid(event: React.PointerEvent<HTMLElement>) {
     if (reduced || !heroRef.current) return;
@@ -142,8 +164,8 @@ export default function PortfolioClient({ data }: { data: PortfolioData }) {
           </AnimatePresence>
         </div>
         <div className="project-index" ref={projectIndexRef}>
-          {projects.map((project, index) => <article key={project.title} data-project-index={index} className={focusedProject === index ? "active" : ""} onMouseEnter={() => setFocusedProject(index)} onFocus={() => setFocusedProject(index)}>
-            <button className="project-select" type="button" onClick={() => setFocusedProject(index)} aria-label={`Preview ${project.title}`}><span>{String(index + 1).padStart(2, "0")}</span><div><small>{project.type}</small><h3>{project.title}</h3><p>{project.description}</p></div><FaArrowRight/></button>
+          {projects.map((project, index) => <article key={project.title} data-project-index={index} className={focusedProject === index ? "active" : ""} onMouseEnter={() => focusProject(index)} onFocus={() => focusProject(index)}>
+            <button className="project-select" type="button" onClick={() => focusProject(index)} aria-label={`Preview ${project.title}`}><span>{String(index + 1).padStart(2, "0")}</span><div><small>{project.type}</small><h3>{project.title}</h3><p>{project.description}</p></div><FaArrowRight/></button>
             <div className="project-index-actions"><button type="button" onClick={() => setSelectedProject(project)}>Project info</button>{project.githubUrl ? <a href={project.githubUrl} target="_blank" rel="noreferrer" aria-label={`${project.title} on GitHub`}><FaGithub/> GitHub</a> : <span>Private build</span>}</div>
           </article>)}
         </div>
